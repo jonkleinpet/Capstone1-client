@@ -1,0 +1,31 @@
+.App {
+  text-align: center;
+  font-family: 'GlacialIndifferenceRegular'; 
+  font-weight: normal; 
+  font-style: normal; 
+}
+
+.main-post-list {
+  list-style-type: none;
+}
+
+.main-container {
+  width: 70vw;
+  display: block;
+  height: auto;
+  padding-left: 20px;
+  border-left: slategray thin solid;
+}
+
+.page-container {
+  display: inline-flex;
+  margin-top: 50px;
+}
+
+body {
+  display: flex;
+}
+
+#root {
+  width: 100vw;
+}
