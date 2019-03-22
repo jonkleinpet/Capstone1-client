@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import config from '../../config';
+import PostsContext from '../../context/context';
+import LoginError from './LoginError';
 import './LoginForm.css';
 
 
@@ -10,37 +11,46 @@ class LoginForm extends Component {
       name: '',
       password: '',
       message: '',
-      isError: false,
       formValid: false
     }
   }
+
+  static contextType = PostsContext;
+
+  updateName = (e) => {
+    this.setState({ name: e.target.value });
+  };
+
+  updatePassword = (e) => {
+    this.setState({ password: e.target.value });
+  };
   
   handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`${config.API_ENDPOINT}/posts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + config.API_KEY
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        password: this.state.password
-      })
-    });
-  }
+    const { name, password } = this.state;
+    const userLogin = this.context;
+    userLogin(name, password);
+    
+  };
 
   render() {
-    
-    
+    const { isError, errorMessage } = this.props;
     return (
       <form className="login-form" onSubmit={ (e) => this.handleSubmit(e) }>
-        <label htmlFor="user-name">User Name: </label>
-          <input type="text" id="user-name" name="user-name" placeholder="Laurie" required />
-        <label htmlFor="user-password">Password: </label>
-          <input type="password" id="user-password" name="password" required/>
+        <h1>Log In</h1>
+      <label htmlFor="user-name">User Name: </label>
+      <input type="text" id="user-name" name="user-name" placeholder="Laurie" autoComplete="off" required onChange={ (e) => this.updateName(e) }/>
+      <label htmlFor="user-password">Password: </label>
+        <input type="password" id="user-password" name="password" required onChange={ (e) => this.updatePassword(e) } />
         <button type="submit">Submit</button>
+        {
+          isError
+            ? <LoginError message={ errorMessage } />
+            : <></>
+        }
       </form>
+      
+        
     )
   }
 

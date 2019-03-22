@@ -9,13 +9,10 @@ class SideBar extends Component {
           Bio Image
         </div>
         <div>
-          Pintrest save img Widget
+          Google Auth
         </div>
         <div>
-          Twitter Widget
-        </div>
-        <div>
-          Instagram Widget
+          Facebook Login
         </div>
       </>
     )  

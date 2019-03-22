@@ -1,0 +1,17 @@
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.comment-form label {
+  display: inline-block;
+  padding: 10px;
+}
+
+.comment-form button {
+  margin-top: 10px;
+  display: inline-block;
+}
+
+

@@ -2,18 +2,18 @@
   text-align: center;
   font-family: 'GlacialIndifferenceRegular'; 
   font-weight: normal; 
-  font-style: normal; 
+  font-style: normal;
 }
 
-.main-post-list {
+ul {
   list-style-type: none;
 }
 
 .main-container {
-  width: 70vw;
+  width: 60vw;
   display: block;
   height: auto;
-  padding-left: 20px;
+  padding-left: 60px;
   border-left: slategray thin solid;
 }
 
@@ -28,4 +28,5 @@ body {
 
 #root {
   width: 100vw;
+  letter-spacing: .8px;
 }
