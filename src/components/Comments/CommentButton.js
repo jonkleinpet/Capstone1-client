@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CommentsForm from "./CommentsForm";
-import './comment-button.css';
+import './styles/comment-button.css';
 
 class CommentButton extends Component {
   state = {

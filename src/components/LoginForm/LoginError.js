@@ -1,5 +1,5 @@
 import React from 'react';
-import './LoginError.css';
+import "./styles/LoginError.css";
 
 export default function LoginError(props) {
   const { message } = props;

@@ -1,5 +1,5 @@
 import React from 'react';
-import './RegisterError.css';
+import "./styles/RegisterError.css";
 
 export default function RegisterError(props) {
   const { message } = props;

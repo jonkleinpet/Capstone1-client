@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PostsContext from "../../context/context";
-import './comment-form.css';
+import "./styles/comment-form.css";
 
 class CommentsForm extends Component {
   constructor(props) {

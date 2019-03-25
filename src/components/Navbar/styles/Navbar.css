@@ -7,6 +7,14 @@ a {
   padding: 5px 20px;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
+.active {
+  color: lightblue;
+}
+
 .login-reg-items {
   display: inline-flex;
   justify-content: flex-end;
@@ -16,7 +24,7 @@ a {
 }
 
 img {
-  width: 10vw;
+  
   height: auto;
 }
 

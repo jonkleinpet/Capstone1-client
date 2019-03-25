@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import tokenService from "../../services/token-service";
 import RegisterError from './RegisterError';
-import config from "../../config";
-import './register-form.css';
+import PostsContext from '../../context/context';
+import "./styles/register-form.css";
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -11,43 +10,20 @@ class RegisterForm extends Component {
       userName: '',
       fullName: '',
       password: '',
-      formValid: true,
-      isError: false,
-      errorMessage: ''
+      formValid: true
+      
     }
   } 
 
+  static contextType = PostsContext;
+
   handleSubmit = (e) => {
+    const userRegister = this.context;
+    const { userName, fullName, password } = this.state;
     this.setState({ isError: false });
     e.preventDefault();
-    fetch(`${config.API_ENDPOINT}/users`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${tokenService.getAuthToken()}`
-      },
-
-      body: JSON.stringify({
-        user_name: this.state.userName,
-        full_name: this.state.fullName,
-        password: this.state.password
-      })
-    })
-      .then(res => {
-      if (!res.ok) {
-        return res.json().then(e => Promise.reject(e));
-      }
-      return res.json();
-    })
-      .then(() => this.setState({ userName: '', fullName: '', password: '' }))
-      .catch(res => {
-        this.setState({
-          isError: true,
-          errorMessage: res.error
-      })
-    })
+    userRegister(userName, fullName, password);
     
-
   }
 
   updateUserName = (e) => {
@@ -63,7 +39,7 @@ class RegisterForm extends Component {
   }
 
   render() {
-
+    const { isError, errorMessage } = this.props;
     return (
       <form className="register-form" onSubmit={ (e) => this.handleSubmit(e) }>
         <h1>Register</h1>
@@ -75,8 +51,8 @@ class RegisterForm extends Component {
         <input type="password" id="user-password" name="password" required onChange={ (e) => this.updatePassword(e) } />
         <button type="submit">Submit</button>
         {
-          this.state.isError
-            ? <RegisterError message={ this.state.errorMessage } />
+          isError
+            ? <RegisterError message={ errorMessage } />
             : <></>
         }
       </form>

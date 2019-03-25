@@ -25,7 +25,7 @@ export default function CommentList(props) {
                       return <span key={ i }> { u.user_name } - </span>
                     }) }
                   { c.content } 
-                <div>{ c.date_created }</div>
+                <div>{ new Date(c.date_created).toDateString() }</div>
               </li>
             </ul>
           </div>

@@ -1,19 +1,15 @@
-.register-form {
+.post-form {
   display: flex;
-  width: 40vw;
+  /* width: 40vw; */
   flex-direction: column;
   align-items: center;
 }
 
-.register-form label {
+.post-form label {
   display: inline-block;
   padding: 10px;
 }
 
-.register-form button {
+.post-form button {
   display: inline-block;
-}
-
-button {
-  margin-top: 10px;
 }

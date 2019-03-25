@@ -1,0 +1,13 @@
+.post-item {
+  margin: 50px;
+  padding-top: 50px;
+  border-top: 1px solid lightslategray;
+}
+
+.last-post {
+  margin-bottom: 50px;
+}
+
+hr {
+  margin-top: 50px;
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PostsContext from '../../context/context';
 import LoginError from './LoginError';
-import './LoginForm.css';
+import "./styles/LoginForm.css";
 
 
 class LoginForm extends Component {

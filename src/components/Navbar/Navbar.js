@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import tokenService from '../../services/token-service';
 import AdminNavbar from '../../components/Navbar/AdminNavbar';
-import './Navbar.css'
+import "./styles/Navbar.css";
 
 class Navbar extends Component {
   
@@ -20,16 +20,16 @@ class Navbar extends Component {
           <NavLink to='/about'>
             <div className='nav-item'>About</div>
           </NavLink>
-          <NavLink to='/'>
+          <Link to='/'>
             <div className='nav-item'>Home</div>
-          </NavLink>
+          </Link>
         </span>
 
         <span className='login-reg-items'>
           { tokenService.hasAuthToken()
-            ? <NavLink to='/'>
+            ? <Link to='/'>
               <div className='nav-item' onClick={ () => logout() }>Logout</div>
-            </NavLink>
+            </Link>
 
             : <>
               <NavLink to='/login'>

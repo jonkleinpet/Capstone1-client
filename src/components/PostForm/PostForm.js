@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PostsContext from '../../context/context';
-import './post-form.css';
+import CloudinaryWidget from './CloudinaryWidget';
+import "./styles/post-form.css";
 
 class PostForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      content: ''
+      content: '',
+      image: null
     }
   }
   
@@ -14,6 +16,10 @@ class PostForm extends Component {
 
   updateContent = (e) => {
     this.setState({ content: e.target.value })
+  }
+
+  updateImage = (e) => {
+    this.setState({ image: e.target.value })
   }
 
   handleSubmit = (e) => {
@@ -24,25 +30,29 @@ class PostForm extends Component {
   }
 
   render() {
-  
+
     return (
-      <form className="post-form" onSubmit={ (e) => this.handleSubmit(e) }>
-        <h2>Post Blog</h2>
-        <textarea
-          type="text"
-          id="blog-post" 
-          name="blog-post" 
-          placeholder="Blog Post"
-          wrap="soft" 
-          autoFocus={ true } 
-          autoCapitalize="sentences" 
-          rows="20"
-          cols="60"
-          onChange={ (e) => this.updateContent(e) }
-          required />
-        <button type="submit">Submit</button>
-      </form>
-    )
+      <div className='post-form'>
+        <form className='post-form' onSubmit={e => this.handleSubmit(e)}>
+          <h2>Post Blog</h2>
+          <textarea
+            type='text'
+            id='blog-post'
+            name='blog-post'
+            placeholder='Blog Post'
+            wrap='soft'
+            autoFocus={true}
+            autoCapitalize='sentences'
+            rows='20'
+            cols='60'
+            onChange={e => this.updateContent(e)}
+            required
+          />
+            <button type='submit'>Submit</button>
+            <CloudinaryWidget />
+        </form>
+      </div>
+    );
   }
 
 }

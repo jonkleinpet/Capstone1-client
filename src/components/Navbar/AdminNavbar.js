@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import tokenService from '../../services/token-service';
 
 class AdminNavbar extends Component {
@@ -18,18 +18,18 @@ class AdminNavbar extends Component {
           <NavLink to='/about'>
             <div className='nav-item'>About</div>
           </NavLink>
-          <NavLink to='/'>
+          <Link to='/'>
             <div className='nav-item'>Home</div>
-          </NavLink>
+          </Link>
           <NavLink to='/blog'>
             <div>Blog</div>
           </NavLink>
           
         </span>
         <span className='login-reg-items'>
-          <NavLink to='/'>
+          <Link to='/'>
             <div className='nav-item' onClick={ () => logout() }>Logout</div>
-          </NavLink>
+          </Link>
         </span>
       </div>
     );

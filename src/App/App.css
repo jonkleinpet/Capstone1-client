@@ -13,8 +13,7 @@ ul {
   width: 60vw;
   display: block;
   height: auto;
-  padding-left: 60px;
-  border-left: slategray thin solid;
+  
 }
 
 .page-container {
@@ -24,6 +23,22 @@ ul {
 
 body {
   display: flex;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 8px 10px;
+  background-color: lightsteelblue;
+}
+
+button:hover {
+  background-color: lightblue;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: 0;
 }
 
 #root {
