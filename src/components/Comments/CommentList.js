@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/comment-list.css';
 
 export default function CommentList(props) {
   const { comments, user, post_id } = props;
@@ -11,8 +12,8 @@ export default function CommentList(props) {
       })
       .map(c => {
         return (
-          <div key={ c.comment_id }>
-            <ul>
+          <div className="comment-list" key={ c.comment_id }>
+            <ul className="comment-item">
               <li>
 
                 {// filter which user name relates to each comment
@@ -25,7 +26,7 @@ export default function CommentList(props) {
                       return <span key={ i }> { u.user_name } - </span>
                     }) }
                   { c.content } 
-                <div>{ new Date(c.date_created).toDateString() }</div>
+                <div className="comment-date">{ new Date(c.date_created).toDateString() }</div>
               </li>
             </ul>
           </div>

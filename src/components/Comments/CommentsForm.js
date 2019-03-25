@@ -27,7 +27,7 @@ class CommentsForm extends Component {
     
     return !this.state.hidden ? (
       <form className="comment-form" onSubmit={ (e) => this.handleSubmit(e) }>
-        <h3>Leave a Comment</h3>    
+        <h4>Leave a Comment</h4>    
         <textarea
           type="text"
           id="comment-post"

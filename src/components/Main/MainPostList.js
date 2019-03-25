@@ -19,14 +19,17 @@ class MainPostList extends Component {
     const postList = posts.map((p, i) => {
       return (
         // generate posts list
-        <div className= {i !== 0 ? "post-item" : ""} key={p.id}>
+        <div className={i !== 0 ? "post-item" : "first-post"} key={p.id}>
           <h2>Blog Post title {p.id}</h2>
           <ImageList images={images} postId={p.id} />
           <ul className='main-post-list'>
             <li>{p.content}</li>
-            <li>Posted - {new Date(p.date_added).toDateString()}</li>
+            <li className="post-date">Posted - {new Date(p.date_added).toDateString()}</li>
           </ul>
-          <CommentList comments={comments} user={user} post_id={p.id} />
+          <h3>Comments</h3>
+          <div className="comment-container">
+            <CommentList comments={ comments } user={ user } post_id={ p.id } />
+          </div>
           {tokenService.hasAuthToken() ? (
             <CommentButton
               commentPost={commentPost}
