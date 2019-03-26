@@ -7,13 +7,12 @@ class ImageList extends Component {
     
     const { images, postId } = this.props
     return (
-      images.filter(img => img.id === postId).map((img, i) => {
+      images.filter(img => img.post_id === postId).map((img, i) => {
         return (
           <div key={i}>
             <Image
               cloudName='jonklein'
-              publicId={img.url} width="400">
-              
+              publicId={img.url} width="400">      
             </Image>
           </div>
         );

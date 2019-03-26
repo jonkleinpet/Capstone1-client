@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PostsContext from '../../context/context';
-import CloudinaryWidget from './CloudinaryWidget';
 import "./styles/post-form.css";
 
 class PostForm extends Component {
@@ -8,7 +7,6 @@ class PostForm extends Component {
     super(props)
     this.state = {
       content: '',
-      image: null
     }
   }
   
@@ -18,19 +16,16 @@ class PostForm extends Component {
     this.setState({ content: e.target.value })
   }
 
-  updateImage = (e) => {
-    this.setState({ image: e.target.value })
-  }
-
   handleSubmit = (e) => {
+    const { history } = this.props;
     const { content } = this.state;
     const blogPost  = this.context;
     e.preventDefault();
-    blogPost(content);
+    blogPost(content).then(() => history.push('/'));
   }
 
   render() {
-
+    
     return (
       <div className='post-form'>
         <form className='post-form' onSubmit={e => this.handleSubmit(e)}>
@@ -49,7 +44,6 @@ class PostForm extends Component {
             required
           />
             <button type='submit'>Submit</button>
-            <CloudinaryWidget />
         </form>
       </div>
     );

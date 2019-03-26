@@ -5,17 +5,17 @@ import CommentList from '../Comments/CommentList';
 import tokenService from '../../services/token-service';
 import ImageList from './ImageList';
 import "./styles/main-post-list.css";
-//import LoadingIcon from '../LoadingIcon/LoadingIcon';
-//import './sidebar.css';
+import CloudinaryWidget from './CloudinaryWidget';
 
 class MainPostList extends Component {
 
   static contextType = PostsContext;
 
   render() {
-    const { commentPost } = this.props
+  
+    const { commentPost, imagePost } = this.props
     const { posts, isLoading, user, comments, images } = this.context;
-
+    console.log(posts)
     const postList = posts.map((p, i) => {
       return (
         // generate posts list
@@ -25,6 +25,10 @@ class MainPostList extends Component {
           <ul className='main-post-list'>
             <li>{p.content}</li>
             <li className="post-date">Posted - {new Date(p.date_added).toDateString()}</li>
+            {tokenService.hasAuthToken() && tokenService.isAdmin()
+              ? <CloudinaryWidget post_id={ p.id } imagePost={ imagePost }/>
+              : <></>
+            }
           </ul>
           <h3>Comments</h3>
           <div className="comment-container">
