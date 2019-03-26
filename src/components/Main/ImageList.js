@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Transformation } from 'cloudinary-react';
+import { Image } from 'cloudinary-react';
 import './styles/image-list.css';
 
 class ImageList extends Component {
