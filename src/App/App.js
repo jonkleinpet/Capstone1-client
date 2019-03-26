@@ -34,14 +34,14 @@ class App extends Component {
   }
 
   // POST blog for PostForm Component
-  blogPost = (content, image) => {
-    fetch(`${config.API_ENDPOINT}/posts/blog`, {
+  blogPost = (content) => {
+    return fetch(`${config.API_ENDPOINT}/posts/blog`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
         "Authorization": `Bearer ${tokenService.getAuthToken()}`
       },
-      body: JSON.stringify({ content, image })
+      body: JSON.stringify({ content })
     })
       .then(res => {
         if (!res.ok) {
@@ -49,11 +49,12 @@ class App extends Component {
         }
         return res.json();
       })
-      .then(posts => {
-        const newPosts = [...this.state.posts, posts]
-        this.setState({ newPosts })
+      .then(post => {
+        console.log(post)
+        const newPosts = [...this.state.posts, post];
+        this.setState({ posts: newPosts });
   })
-  .catch(err => console.error(err.message))
+    .catch(err => console.error(err.message))
   }
   
   // POST comment
@@ -86,6 +87,11 @@ class App extends Component {
         });
       })
     
+  }
+
+  imagePost = (img) => {
+    const newImages = [...this.state.images, img];
+    this.setState({ images: newImages })
   }
   
   // GET all posts for MainPostList Component
@@ -240,8 +246,8 @@ class App extends Component {
               <Route
                 exact
                 path={"/"}
-                render={() => (
-                  <MainPostList commentPost={this.commentPost} />
+                render={ () => (
+                  <MainPostList commentPost={this.commentPost} imagePost={this.imagePost} />
                 )}
               />
             </PostsContext.Provider>
@@ -285,7 +291,8 @@ class App extends Component {
             <Route path={"/about"} component={About} />
 
             <PostsContext.Provider value={this.blogPost}>
-              <AdminRoute path={"/blog"} component={PostForm} />
+              <AdminRoute
+                path={ "/blog" } component={ PostForm } />
             </PostsContext.Provider>
           </div>
         </div>

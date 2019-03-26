@@ -1,0 +1,21 @@
+.widget {
+  display: inline-flex;
+
+}
+
+.widget input {
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  background-color: silver;
+}
+
+.widget input:hover {
+  background-color: lightskyblue;
+  cursor: pointer;
+}
+
+.widget input:focus {
+  outline: 0;
+}
