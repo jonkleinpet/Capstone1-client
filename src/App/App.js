@@ -229,46 +229,64 @@ class App extends Component {
     return (
       <div className='App'>
         <header className='App-header'>
-          <Navbar toggleLogout={ this.toggleLogout }/>
+          <Navbar toggleLogout={this.toggleLogout} />
         </header>
-        <h1>Laurie's Blog</h1>
+
         <div className='page-container'>
-          <div className='sidebar-container'>
-            
-          </div>
+          <div className='sidebar-container' />
           <div className='main-container'>
-            <PostsContext.Provider value={ this.state }>
-              <Route exact path={ "/" } render={ () => <MainPostList commentPost={this.commentPost}/> }/>
+            <h1>Laurie's Blog</h1>
+            <PostsContext.Provider value={this.state}>
+              <Route
+                exact
+                path={"/"}
+                render={() => (
+                  <MainPostList commentPost={this.commentPost} />
+                )}
+              />
             </PostsContext.Provider>
-            
-              <Route exact path={ "/login" } render={ () => (
+
+            <Route
+              exact
+              path={"/login"}
+              render={() =>
                 this.state.isLoggedIn ? (
-                  <Redirect to="/" />
-              ) : (
-                  <PostsContext.Provider value={ this.userLogin }>
-                    <LoginForm isError={ this.state.isError } errorMessage={ this.state.errorMessage }/>
-                  </PostsContext.Provider>
-                  )
-              )} />
-          
-            <PostsContext.Provider value={ this.userRegister }> 
-              <Route exact path={ "/register" } render={ () => (
-                this.state.isLoggedIn ? (
-                  <Redirect to="/" />
+                  <Redirect to='/' />
                 ) : (
-                    <PostsContext.Provider value={ this.userRegister }>
-                      <RegisterForm isError={ this.state.isError } errorMessage={ this.state.errorMessage } />
-                    </PostsContext.Provider>
+                  <PostsContext.Provider value={this.userLogin}>
+                    <LoginForm
+                      isError={this.state.isError}
+                      errorMessage={this.state.errorMessage}
+                    />
+                  </PostsContext.Provider>
                 )
-              )} />
+              }
+            />
+
+            <PostsContext.Provider value={this.userRegister}>
+              <Route
+                exact
+                path={"/register"}
+                render={() =>
+                  this.state.isLoggedIn ? (
+                    <Redirect to='/' />
+                  ) : (
+                    <PostsContext.Provider value={this.userRegister}>
+                      <RegisterForm
+                        isError={this.state.isError}
+                        errorMessage={this.state.errorMessage}
+                      />
+                    </PostsContext.Provider>
+                  )
+                }
+              />
             </PostsContext.Provider>
 
-            <Route path={ "/about" } component={ About } />
+            <Route path={"/about"} component={About} />
 
-            <PostsContext.Provider value={ this.blogPost }>
-              <AdminRoute path={ "/blog" } component={ PostForm } />
+            <PostsContext.Provider value={this.blogPost}>
+              <AdminRoute path={"/blog"} component={PostForm} />
             </PostsContext.Provider>
-            
           </div>
         </div>
       </div>
