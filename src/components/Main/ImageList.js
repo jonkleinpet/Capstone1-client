@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
+import './styles/image-list.css';
 
 class ImageList extends Component {
-
-  render() {
-    
+  
+  render() {  
     const { images, postId } = this.props
     return (
       images.filter(img => img.post_id === postId).map((img, i) => {
         return (
-          <div key={i}>
+          <div className="img-container" key={i}>
             <Image
               cloudName='jonklein'
-              publicId={img.url} width="400">      
+              publicId={ img.url } width="550">
             </Image>
           </div>
         );
       })
-      
     )
   }
 

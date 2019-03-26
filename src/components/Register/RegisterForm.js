@@ -19,10 +19,12 @@ class RegisterForm extends Component {
 
   handleSubmit = (e) => {
     const userRegister = this.context;
+    const { userLogin } = this.props;
     const { userName, fullName, password } = this.state;
     this.setState({ isError: false });
     e.preventDefault();
-    userRegister(userName, fullName, password);
+    userRegister(userName, fullName, password)
+      .then(() => userLogin(userName, password));
     
   }
 

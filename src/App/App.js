@@ -184,7 +184,7 @@ class App extends Component {
   // POST user register
   userRegister = (user_name, full_name, password) => {
     this.setState({ isError: false })
-    fetch(`${config.API_ENDPOINT}/users`, {
+    return fetch(`${config.API_ENDPOINT}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -235,52 +235,53 @@ class App extends Component {
     return (
       <div className='App'>
         <header className='App-header'>
-          <Navbar toggleLogout={this.toggleLogout} />
+          <Navbar toggleLogout={ this.toggleLogout } />
         </header>
 
         <div className='page-container'>
           <div className='sidebar-container' />
           <div className='main-container'>
-            <h1>Laurie's Blog</h1>
-            <PostsContext.Provider value={this.state}>
+            <h1>Welcome to Laurie's Blog</h1>
+            <PostsContext.Provider value={ this.state }>
               <Route
                 exact
-                path={"/"}
+                path={ "/" }
                 render={ () => (
-                  <MainPostList commentPost={this.commentPost} imagePost={this.imagePost} />
+                  <MainPostList commentPost={ this.commentPost } imagePost={ this.imagePost } />
                 )}
               />
             </PostsContext.Provider>
 
             <Route
               exact
-              path={"/login"}
-              render={() =>
+              path={ "/login" }
+              render={ () =>
                 this.state.isLoggedIn ? (
                   <Redirect to='/' />
                 ) : (
-                  <PostsContext.Provider value={this.userLogin}>
-                    <LoginForm
-                      isError={this.state.isError}
-                      errorMessage={this.state.errorMessage}
+                    <PostsContext.Provider value={ this.userLogin }>
+                      <LoginForm
+                        isError={ this.state.isError }
+                        errorMessage={ this.state.errorMessage }
                     />
                   </PostsContext.Provider>
                 )
               }
             />
 
-            <PostsContext.Provider value={this.userRegister}>
+            <PostsContext.Provider value={ this.userRegister }>
               <Route
                 exact
-                path={"/register"}
-                render={() =>
+                path={ "/register" }
+                render={ () =>
                   this.state.isLoggedIn ? (
                     <Redirect to='/' />
                   ) : (
-                    <PostsContext.Provider value={this.userRegister}>
+                      <PostsContext.Provider value={ this.userRegister }>
                       <RegisterForm
-                        isError={this.state.isError}
-                        errorMessage={this.state.errorMessage}
+                        isError={ this.state.isError }
+                          errorMessage={ this.state.errorMessage }
+                          userLogin={ this.userLogin }
                       />
                     </PostsContext.Provider>
                   )
@@ -288,9 +289,9 @@ class App extends Component {
               />
             </PostsContext.Provider>
 
-            <Route path={"/about"} component={About} />
+            <Route path={ "/about" } component={ About } />
 
-            <PostsContext.Provider value={this.blogPost}>
+            <PostsContext.Provider value={ this.blogPost }>
               <AdminRoute
                 path={ "/blog" } component={ PostForm } />
             </PostsContext.Provider>
