@@ -5,6 +5,16 @@
   font-style: normal;
 }
 
+.App-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: -.01px;
+}
+
+h1 {
+  margin: 80px;
+}
+
 ul {
   list-style-type: none;
 }
@@ -13,12 +23,10 @@ ul {
   width: 60vw;
   display: block;
   height: auto;
-  
 }
 
 .page-container {
   display: inline-flex;
-  margin-top: 50px;
 }
 
 body {
@@ -30,11 +38,11 @@ button {
   border-radius: 5px;
   padding: 8px 10px;
   margin: 10px 0;
-  background-color: lightsteelblue;
+  background-color: silver;
 }
 
 button:hover {
-  background-color: lightblue;
+  background-color: lightskyblue;
   cursor: pointer;
 }
 
