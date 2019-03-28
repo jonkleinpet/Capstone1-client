@@ -24,6 +24,8 @@ export default class CloudinaryWidget extends Component {
           if (error) {
             this.setState({errorMsg: error.message})
           }
+          
+          // prevent error when user exits widget without uploading
           try {
             const { url, public_id } = result[0];
             const newImage = {

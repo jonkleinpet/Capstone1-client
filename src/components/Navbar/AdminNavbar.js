@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import tokenService from '../../services/token-service';
+import './styles/Navbar.css';
 
 class AdminNavbar extends Component {
 
@@ -22,13 +23,14 @@ class AdminNavbar extends Component {
             <div className='nav-item'>Home</div>
           </Link>
           <NavLink to='/blog'>
-            <div>Blog</div>
+            <div className='nav-item'>Blog</div>
           </NavLink>
-          
         </span>
         <span className='login-reg-items'>
           <Link to='/'>
-            <div className='nav-item' onClick={ () => logout() }>Logout</div>
+            <div className='nav-item' onClick={() => logout()}>
+              Logout
+            </div>
           </Link>
         </span>
       </div>

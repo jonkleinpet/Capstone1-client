@@ -15,6 +15,10 @@ h1 {
   margin: 80px;
 }
 
+h1, h2, h3, h4 {
+  font-family: 'Comfortaa', cursive;
+}
+
 ul {
   list-style-type: none;
 }
@@ -38,11 +42,11 @@ button {
   border-radius: 5px;
   padding: 4px 10px;
   margin: 10px 0;
-  background-color: silver;
+  background-color: lightskyblue;
 }
 
 button:hover {
-  background-color: lightskyblue;
+  background-color: silver;
   cursor: pointer;
 }
 

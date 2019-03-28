@@ -4,14 +4,27 @@
   border-top: 1px solid silver;
 }
 
+a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.65);
+}
+
 .main-post-list {
   line-height: 23px;
+  padding-left: 0;
+}
+
+.post-content {
+  font-family: 'Crimson Text', serif;
+  font-size: 24px;
+  line-height: 30px;
 }
 
 .post-date {
   text-align-last: right;
+  font-family: 'Crimson Text', serif;
   margin: 15px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .comment-date {
@@ -24,7 +37,6 @@
 
 .comment-container {
   background-color: aliceblue;
-  width: 40vw;
   color: #6F6F6F;
   border-radius: 8px;
   margin-bottom: 20px;

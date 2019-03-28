@@ -1,5 +1,4 @@
-
-a {
+.nav-item {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.65);
   display: inline-block;
@@ -7,12 +6,8 @@ a {
   padding: 5px 20px;
 }
 
-a:hover {
+.nav-item:hover {
   color: rgb(0, 0, 0)
-}
-
-.active {
-  color: rgb(0, 0, 0);
 }
 
 .login-reg-items {
@@ -25,7 +20,6 @@ a:hover {
   0px 4px 8px rgba(0, 0, 2, 0.28);
 }
 
-
 img {
   height: auto;
 }
@@ -34,4 +28,8 @@ img {
   display: inline-flex;
   width: 45vw;
   justify-content: flex-start;
+}
+
+a.active {
+  color: rgb(0, 0, 0);
 }

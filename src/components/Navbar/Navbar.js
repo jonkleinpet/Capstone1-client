@@ -45,6 +45,8 @@ class Navbar extends Component {
     );
 
     return (
+      
+      // check user is logged in and is admin
       tokenService.hasAuthToken() && tokenService.isAdmin()
       ? <>
           <AdminNavbar toggleLogout={ toggleLogout }/>

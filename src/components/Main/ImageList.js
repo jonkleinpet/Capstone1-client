@@ -7,6 +7,8 @@ class ImageList extends Component {
   render() {  
     const { images, postId } = this.props
     return (
+      
+      // filter images by associated post id
       images.filter(img => img.post_id === postId).map((img, i) => {
         return (
           <div className="img-container" key={i}>
@@ -19,7 +21,6 @@ class ImageList extends Component {
       })
     )
   }
-
 }
 
 export default ImageList

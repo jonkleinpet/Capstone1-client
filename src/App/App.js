@@ -4,12 +4,10 @@ import MainPostList from '../components/Main/MainPostList';
 import config from '../config';
 import AdminRoute from '../components/Routes/AdminRoute';
 import PostsContext from '../context/context';
-//import PrivateRoute from '../components/Routes/PrivateRoute';
-//import PublicRoute from '../components/Routes/PublicRoute';
-//import SideBar from '../components/Main/SideBar';
 import Navbar from '../components/Navbar/Navbar';
 import LoginForm from '../components/LoginForm/LoginForm';
 import About from '../components/About/About';
+import ErrorBoundary from '../components/Errors/ErrorBoundary';
 import RegisterForm from '../components/Register/RegisterForm';
 import PostForm from '../components/PostForm/PostForm';
 import tokenService from '../services/token-service';
@@ -25,7 +23,6 @@ class App extends Component {
     isLoading: true,
     isError: false,
     errorMessage: ''
-    
   }
 
   // toggle login state
@@ -33,7 +30,7 @@ class App extends Component {
     this.setState({ isLoggedIn: loggedOut });
   }
 
-  // POST blog for PostForm Component
+  // POST requests
   blogPost = (content) => {
     return fetch(`${config.API_ENDPOINT}/posts/blog`, {
       method: "POST",
@@ -57,7 +54,7 @@ class App extends Component {
     .catch(err => console.error(err.message))
   }
   
-  // POST comment
+ 
   commentPost = (content, post_id) => {
    this.setState({isLoading: true})
     fetch(`${config.API_ENDPOINT}/comments`, {
@@ -89,12 +86,13 @@ class App extends Component {
     
   }
 
+ 
   imagePost = (img) => {
     const newImages = [...this.state.images, img];
     this.setState({ images: newImages })
   }
   
-  // GET all posts for MainPostList Component
+  // GET requests
   getAllPosts = () => {
     return fetch(`${config.API_ENDPOINT}/posts`, {
       method: "GET",
@@ -112,7 +110,7 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
-  // GET all comments for MainPostList Component
+
   getAllComments = () => {
     return fetch(`${config.API_ENDPOINT}/comments`, {
       method: "GET",
@@ -129,6 +127,7 @@ class App extends Component {
       })
       .catch(err => console.log(err));
   }
+
 
   getAllImages = () => {
     return fetch(`${config.API_ENDPOINT}/cloudinary`, {
@@ -147,9 +146,9 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
-  // POST user login for LoginForm Component
+  // POST auth requests
   userLogin = (name, password) => {
-    this.setState({ isError: false });
+    this.setState({ isError: false, errorMessage: '' });
     return fetch(`${config.API_ENDPOINT}/auth/login`, {
       method: "POST",
       headers: {
@@ -177,13 +176,15 @@ class App extends Component {
         this.setState({
           isError: true,
           errorMessage: res.error
-        })
+        }, () => setTimeout(() => {
+          this.setState({ isError: false, errorMessage: '' });
+        }, 3000));
       });
   }
 
-  // POST user register
+  
   userRegister = (user_name, full_name, password) => {
-    this.setState({ isError: false })
+    this.setState({ isError: false, errorMessage: '' })
     return fetch(`${config.API_ENDPOINT}/users`, {
       method: "POST",
       headers: {
@@ -204,21 +205,22 @@ class App extends Component {
         return res.json();
       })
       .then(res => {
-        tokenService.saveAuthToken(res.authToken);
-        this.setState({ isLoggedIn: true });
+        this.setState({ isLoggedIn: true }, () => this.userLogin(user_name, password));
       })
       .catch(res => {
         this.setState({
           isError: true,
           errorMessage: res.error
-        });
+        }, () => setTimeout(() => {
+          this.setState({isError: false, errorMessage: ''})
+        }, 3000));
       });
   }
 
   // initial fetch posts and comments
   async componentDidMount() {
-    const { comments, user } = await this.getAllComments()
-    const posts = await this.getAllPosts()
+    const { comments, user } = await this.getAllComments();
+    const posts = await this.getAllPosts();
     const images = await this.getAllImages();
     this.setState({
       posts,
@@ -228,60 +230,63 @@ class App extends Component {
       isLoading: false
     })
   }
-
-
+  
   render() {
     
     return (
+      <ErrorBoundary>
       <div className='App'>
         <header className='App-header'>
-          <Navbar toggleLogout={ this.toggleLogout } />
+          <Navbar toggleLogout={this.toggleLogout} />
         </header>
 
         <div className='page-container'>
           <div className='sidebar-container' />
           <div className='main-container'>
             <h1>Welcome to Laurie's Blog</h1>
-            <PostsContext.Provider value={ this.state }>
+            <PostsContext.Provider value={this.state}>
               <Route
                 exact
-                path={ "/" }
-                render={ () => (
-                  <MainPostList commentPost={ this.commentPost } imagePost={ this.imagePost } />
+                path={"/"}
+                render={() => (
+                  <MainPostList
+                    commentPost={this.commentPost}
+                    imagePost={this.imagePost}
+                  />
                 )}
               />
             </PostsContext.Provider>
 
             <Route
               exact
-              path={ "/login" }
-              render={ () =>
+              path={"/login"}
+              render={() =>
                 this.state.isLoggedIn ? (
                   <Redirect to='/' />
                 ) : (
-                    <PostsContext.Provider value={ this.userLogin }>
-                      <LoginForm
-                        isError={ this.state.isError }
-                        errorMessage={ this.state.errorMessage }
+                  <PostsContext.Provider value={this.userLogin}>
+                    <LoginForm
+                      isError={this.state.isError}
+                      errorMessage={this.state.errorMessage}
                     />
                   </PostsContext.Provider>
                 )
               }
             />
 
-            <PostsContext.Provider value={ this.userRegister }>
+            <PostsContext.Provider value={this.userRegister}>
               <Route
                 exact
-                path={ "/register" }
-                render={ () =>
+                path={"/register"}
+                render={() =>
                   this.state.isLoggedIn ? (
                     <Redirect to='/' />
                   ) : (
-                      <PostsContext.Provider value={ this.userRegister }>
+                    <PostsContext.Provider value={this.userRegister}>
                       <RegisterForm
-                        isError={ this.state.isError }
-                          errorMessage={ this.state.errorMessage }
-                          userLogin={ this.userLogin }
+                        isError={this.state.isError}
+                        errorMessage={this.state.errorMessage}
+                        userLogin={this.userLogin}
                       />
                     </PostsContext.Provider>
                   )
@@ -289,15 +294,18 @@ class App extends Component {
               />
             </PostsContext.Provider>
 
-            <Route path={ "/about" } component={ About } />
+            <Route path={"/about"} component={About} />
 
-            <PostsContext.Provider value={ this.blogPost }>
+            <PostsContext.Provider value={this.blogPost}>
               <AdminRoute
-                path={ "/blog" } component={ PostForm } />
+                path={"/blog"}
+                component={ PostForm }
+              />
             </PostsContext.Provider>
           </div>
         </div>
-      </div>
+        </div>
+      </ErrorBoundary>
     );
   }
 }
