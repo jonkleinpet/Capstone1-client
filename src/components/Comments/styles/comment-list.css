@@ -3,3 +3,26 @@
   margin: 30px 0;
   line-height: 22px;
 }
+
+ul {
+  text-indent: -25px;
+}
+
+.comment-date {
+  font-size: 13px;
+}
+
+.comment-item {
+  padding-inline-start: 10px;
+}
+
+.comment-container {
+  background-color: aliceblue;
+  color: #6F6F6F;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 25px;
+}
+.comment-date {
+  padding-left: 25px;
+}

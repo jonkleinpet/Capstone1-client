@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.title-input {
+  margin-bottom: 20px;
+}
+
 .post-form label {
   display: inline-block;
   padding: 10px;
