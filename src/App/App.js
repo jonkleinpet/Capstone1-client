@@ -47,7 +47,8 @@ class App extends Component {
   // filter posts on search title
   filterPosts = () => {
     const posts = this.state.posts;
-    const regex = new RegExp('^'+this.state.searchTitle, 'gi');
+    const title = this.state.searchTitle.replace('\\', '')
+    const regex = new RegExp('^'+title, 'gi');
     const searchedPosts = posts.filter(p => (regex).test(p.title))
     this.setState({ currentPosts: searchedPosts, searchedPosts },
       () => this.isSearchBarInUse(posts))
