@@ -34,7 +34,8 @@ class App extends Component {
 
   // update SearchBar title
   updateTitle = (e) => {
-    this.setState({ searchTitle: e.target.value },
+    const title = e.target.value.replace(/\\/g, '');
+    this.setState({ searchTitle: title },
       () => this.filterPosts())
   }
 
@@ -47,8 +48,7 @@ class App extends Component {
   // filter posts on search title
   filterPosts = () => {
     const posts = this.state.posts;
-    const title = this.state.searchTitle.replace('\\', '')
-    const regex = new RegExp('^'+title, 'gi');
+    const regex = new RegExp('^'+this.state.searchTitle, 'gi');
     const searchedPosts = posts.filter(p => (regex).test(p.title))
     this.setState({ currentPosts: searchedPosts, searchedPosts },
       () => this.isSearchBarInUse(posts))
