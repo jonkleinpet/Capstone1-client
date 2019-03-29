@@ -307,71 +307,73 @@ class App extends Component {
   render() {
     return (
       <ErrorBoundary>
-      <div className='App'>
-        <header className='App-header'>
-          <Navbar toggleLogout={this.toggleLogout} />
-        </header>
+        <div className='App'>
+          <header className='App-header'>
+            <Navbar toggleLogout={this.toggleLogout} />
+          </header>
+          <div className='page-container'>
+            <div className='main-container'>
+              <h1>Welcome to Laurie's Blog</h1>
+              <div className="demo-creds">
+                <h4>Demo site owner login details</h4>
+                <div>username: Laurie</div>
+                <div>password: Password123</div>
+              </div>
 
-        <div className='page-container'>
-          <div className='main-container'>
-            <h1>Welcome to Laurie's Blog</h1>
-            <PostsContext.Provider value={this.state}>
+              <PostsContext.Provider value={this.state}>
+                <Route
+                  exact
+                  path={"/"}
+                  render={() => (
+                    <MainPostList
+                      commentPost={this.commentPost}
+                      imagePost={this.imagePost}
+                      updateTitle={this.updateTitle}
+                      isSearchedPosts={this.isSearchedPosts}
+                      deletePost={this.deletePost}
+                      deleteComment={this.deleteComment}
+                    />
+                  )}
+                />
+              </PostsContext.Provider>
               <Route
                 exact
-                path={"/"}
-                render={() => (
-                  <MainPostList
-                    commentPost={ this.commentPost }
-                    imagePost={ this.imagePost }
-                    updateTitle={ this.updateTitle }
-                    isSearchedPosts={ this.isSearchedPosts }
-                    deletePost={ this.deletePost }
-                    deleteComment={ this.deleteComment }
-                  />
-                )}
-              />
-            </PostsContext.Provider>
-            <Route
-              exact
-              path={"/login"}
-              render={() =>
-                this.state.isLoggedIn ? (
-                  <Redirect to='/' />
-                ) : (              
-                  <LoginForm
-                    isError={this.state.isError}
-                    errorMessage={ this.state.errorMessage }
-                    userLogin={this.userLogin}
-                  />                 
-                )
-              }
-            />   
-              <Route
-                exact
-                path={ "/register" }
-                render={ () =>
+                path={"/login"}
+                render={() =>
                   this.state.isLoggedIn ? (
                     <Redirect to='/' />
                   ) : (
-                      <RegisterForm
-                        isError={ this.state.isError }
-                        errorMessage={ this.state.errorMessage }
-                        userLogin={ this.userLogin }
-                        userRegister={ this.userRegister }
-                      />
-                    )
+                    <LoginForm
+                      isError={this.state.isError}
+                      errorMessage={this.state.errorMessage}
+                      userLogin={this.userLogin}
+                    />
+                  )
                 }
-              />          
-            <Route path={"/about"} component={About} />
-            <PostsContext.Provider value={this.blogPost}>
-              <AdminRoute
-                path={"/blog"}
-                component={ PostForm }
               />
-            </PostsContext.Provider>
+              <Route
+                exact
+                path={"/register"}
+                render={() =>
+                  this.state.isLoggedIn ? (
+                    <Redirect to='/' />
+                  ) : (
+                    <RegisterForm
+                      isError={this.state.isError}
+                      errorMessage={this.state.errorMessage}
+                      userLogin={this.userLogin}
+                      userRegister={this.userRegister}
+                    />
+                  )
+                }
+              />
+              <Route path={"/about"} component={About} />
+              <PostsContext.Provider value={this.blogPost}>
+                <AdminRoute path={"/blog"} component={PostForm} />
+              </PostsContext.Provider>
+            </div>
           </div>
         </div>
-      </div>
       </ErrorBoundary>
     );
   }

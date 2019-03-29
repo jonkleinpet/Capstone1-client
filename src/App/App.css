@@ -59,6 +59,16 @@ button:focus {
   letter-spacing: .8px;
 }
 
+.demo-creds {
+  margin: -50px 0 20px 0;
+  color: rgba(0,0,0,.5);
+  text-align: left;
+}
+
+.demo-creds h4 {
+  margin-bottom: 5px;
+}
+
 @media screen and (max-width: 700px) {
   .main-container {
     width: 100vw;
