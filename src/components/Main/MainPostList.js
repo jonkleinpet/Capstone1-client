@@ -74,8 +74,8 @@ class MainPostList extends Component {
               />
             ) : (
               <div>
-                <Link to={"/register"}>Register</Link> or{" "}
-                <Link to={"/login"}>Login</Link> to post comments!
+                <Link className="user-comment-link" to={"/register"}>Register</Link> or{" "}
+                <Link className="user-comment-link" to={"/login"}>Login</Link> to post comments!
               </div>
             )}
           </div>

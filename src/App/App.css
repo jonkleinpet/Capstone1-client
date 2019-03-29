@@ -58,3 +58,51 @@ button:focus {
   width: 100vw;
   letter-spacing: .8px;
 }
+
+@media screen and (max-width: 700px) {
+  .main-container {
+    width: 100vw;
+    font-size: 18px;
+  }
+
+  .widget input{
+    height: 25px;
+  }
+
+  .navbar {
+    display: -ms-flexbox;
+  }
+
+  .nav-item {
+    padding: 0;
+  }
+
+  .nav-items {
+    width: 50vw;
+  }
+
+  .login-reg-items {
+    width: 40vw;
+  }
+
+  .search-bar-container {
+    margin: 50px 0;
+  }
+
+  #cloudinary-widget {
+    width: 20vw;
+  }
+
+  #blog-post {
+    width: 60vw;
+    height: 30vh;
+  }
+
+  p {
+    margin: 0 20px;
+  }
+
+  h1 {
+    margin: 20px;
+  }
+}

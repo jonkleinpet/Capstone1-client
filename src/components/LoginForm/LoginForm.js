@@ -11,7 +11,6 @@ class LoginForm extends Component {
       name: '',
       password: '',
       message: '',
-      formValid: false
     }
   }
 
@@ -28,7 +27,7 @@ class LoginForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { name, password } = this.state;
-    const userLogin = this.context;
+    const { userLogin } = this.props;
     userLogin(name, password);
     
   };

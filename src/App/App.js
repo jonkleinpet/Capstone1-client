@@ -53,14 +53,6 @@ class App extends Component {
       () => this.isSearchBarInUse(posts))
   }
 
-  setPosts = (newPosts) => {
-    this.setState({
-      currentPosts: newPosts,
-      searchedPosts: newPosts,
-      posts: newPosts
-    });
-  }
-
   // POST requests
   blogPost = (content, title) => {
     return fetch(`${config.API_ENDPOINT}/posts/blog`, {
@@ -243,7 +235,7 @@ class App extends Component {
         console.log(res)
         this.setState({ isLoggedIn: true });
       })
-      // redirect with user feedback
+      // display login error message for 3 seconds
       .catch(res => {
         this.setState({
           isError: true,
@@ -287,7 +279,7 @@ class App extends Component {
           user: [...this.state.user, newUser]
         }, () => this.userLogin(user_name, password));
       })
-
+      // display register error message for 3 seconds
       .catch(res => {
         this.setState({
           isError: true,
@@ -322,7 +314,6 @@ class App extends Component {
         </header>
 
         <div className='page-container'>
-          <div className='sidebar-container' />
           <div className='main-container'>
             <h1>Welcome to Laurie's Blog</h1>
             <PostsContext.Provider value={this.state}>
@@ -341,46 +332,38 @@ class App extends Component {
                 )}
               />
             </PostsContext.Provider>
-
             <Route
               exact
               path={"/login"}
               render={() =>
                 this.state.isLoggedIn ? (
                   <Redirect to='/' />
-                ) : (
-                  <PostsContext.Provider value={this.userLogin}>
-                    <LoginForm
-                      isError={this.state.isError}
-                      errorMessage={this.state.errorMessage}
-                    />
-                  </PostsContext.Provider>
+                ) : (              
+                  <LoginForm
+                    isError={this.state.isError}
+                    errorMessage={ this.state.errorMessage }
+                    userLogin={this.userLogin}
+                  />                 
                 )
               }
-            />
-
-            <PostsContext.Provider value={this.userRegister}>
+            />   
               <Route
                 exact
-                path={"/register"}
-                render={() =>
+                path={ "/register" }
+                render={ () =>
                   this.state.isLoggedIn ? (
                     <Redirect to='/' />
                   ) : (
-                    <PostsContext.Provider value={this.userRegister}>
                       <RegisterForm
-                        isError={this.state.isError}
-                        errorMessage={this.state.errorMessage}
-                        userLogin={this.userLogin}
+                        isError={ this.state.isError }
+                        errorMessage={ this.state.errorMessage }
+                        userLogin={ this.userLogin }
+                        userRegister={ this.userRegister }
                       />
-                    </PostsContext.Provider>
-                  )
+                    )
                 }
-              />
-            </PostsContext.Provider>
-
+              />          
             <Route path={"/about"} component={About} />
-
             <PostsContext.Provider value={this.blogPost}>
               <AdminRoute
                 path={"/blog"}
@@ -389,7 +372,7 @@ class App extends Component {
             </PostsContext.Provider>
           </div>
         </div>
-        </div>
+      </div>
       </ErrorBoundary>
     );
   }

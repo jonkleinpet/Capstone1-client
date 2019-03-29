@@ -30,6 +30,6 @@ img {
   justify-content: flex-start;
 }
 
-a.active {
+.active .nav-item {
   color: rgb(0, 0, 0);
 }

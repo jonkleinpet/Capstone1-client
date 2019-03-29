@@ -10,6 +10,4 @@ export default function SearchBar(props)  {
       <input className="search" name="search-bar" id="search-bar" type='text' onChange={ (e) => updateTitle(e) } />
     </div>
   );
-  
-
 };

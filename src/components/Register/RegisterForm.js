@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import RegisterError from './RegisterError';
-import PostsContext from '../../context/context';
 import "./styles/register-form.css";
 
 class RegisterForm extends Component {
@@ -15,15 +14,12 @@ class RegisterForm extends Component {
     }
   } 
 
-  static contextType = PostsContext;
-
   handleSubmit = (e) => {
-    const userRegister = this.context;
+    const { userRegister } = this.props;
     const { userName, fullName, password } = this.state;
     e.preventDefault();
     userRegister(userName, fullName, password)
       
-    
   }
 
   updateUserName = (e) => {
