@@ -84,6 +84,11 @@ class MainPostList extends Component {
     
     return (
       <>
+        <div className="demo-creds">
+          <h4>Demo site owner login details</h4>
+          <div>username: Laurie</div>
+          <div>password: Password123</div>
+        </div>
         <SearchBar updateTitle={ updateTitle } />
         { postList }     
       </>

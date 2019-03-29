@@ -314,12 +314,6 @@ class App extends Component {
           <div className='page-container'>
             <div className='main-container'>
               <h1>Welcome to Laurie's Blog</h1>
-              <div className="demo-creds">
-                <h4>Demo site owner login details</h4>
-                <div>username: Laurie</div>
-                <div>password: Password123</div>
-              </div>
-
               <PostsContext.Provider value={this.state}>
                 <Route
                   exact
