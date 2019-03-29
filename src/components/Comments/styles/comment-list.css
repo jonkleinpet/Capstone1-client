@@ -4,10 +4,6 @@
   line-height: 22px;
 }
 
-ul {
-  text-indent: -25px;
-}
-
 .comment-date {
   font-size: 13px;
 }
@@ -22,7 +18,4 @@ ul {
   border-radius: 8px;
   margin-bottom: 20px;
   padding: 25px;
-}
-.comment-date {
-  padding-left: 25px;
 }
