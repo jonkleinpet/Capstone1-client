@@ -28,6 +28,15 @@ const tokenService = {
       "base64"
     ).toString("utf8");
     return token.includes('true');
+  },
+
+  checkUser(user_id) {
+    const token = Buffer.from(
+      window.localStorage.getItem(config.TOKEN_KEY),
+      "base64"
+    ).toString("utf8");
+    const regex = new RegExp('"id":' + user_id)
+    return regex.test(token)
   }
 
 }

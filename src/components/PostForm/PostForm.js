@@ -6,7 +6,8 @@ class PostForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      content: '',
+      title: '',
+      content: ''
     }
   }
   
@@ -16,12 +17,16 @@ class PostForm extends Component {
     this.setState({ content: e.target.value })
   }
 
+  updateTitle = (e) => {
+    this.setState({ title: e.target.value })
+  }
+
   handleSubmit = (e) => {
     const { history } = this.props;
-    const { content } = this.state;
+    const { content, title } = this.state;
     const blogPost  = this.context;
     e.preventDefault();
-    blogPost(content).then(() => history.push('/'));
+    blogPost(content, title).then(() => history.push('/'));
   }
 
   render() {
@@ -30,6 +35,8 @@ class PostForm extends Component {
       <div className='post-form'>
         <form className='post-form' onSubmit={e => this.handleSubmit(e)}>
           <h2>Post Blog</h2>
+          <label>Post Title: </label>
+          <input className="title-input" type="text" name="title" id="title" onChange={ e => this.updateTitle(e) } required />
           <textarea
             type='text'
             id='blog-post'

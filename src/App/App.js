@@ -19,10 +19,12 @@ class App extends Component {
     comments: [],
     user: [],
     images: [],
+    searchedPosts: [],
+    currentPosts: [],
     isLoggedIn: false,
-    isLoading: true,
     isError: false,
-    errorMessage: ''
+    errorMessage: '',
+    searchTitle: ''
   }
 
   // toggle login state
@@ -30,15 +32,44 @@ class App extends Component {
     this.setState({ isLoggedIn: loggedOut });
   }
 
+  // update SearchBar title
+  updateTitle = (e) => {
+    this.setState({ searchTitle: e.target.value },
+      () => this.filterPosts())
+  }
+
+  isSearchBarInUse = (posts) => {
+    if (this.state.searchTitle.length === 0) {
+      this.setState({ currentPosts: posts, searchedPosts: [] });
+    }
+  }
+
+  // filter posts on search title
+  filterPosts = () => {
+    const posts = this.state.posts;
+    const regex = new RegExp('^'+this.state.searchTitle, 'gi');
+    const searchedPosts = posts.filter(p => (regex).test(p.title))
+    this.setState({ currentPosts: searchedPosts, searchedPosts },
+      () => this.isSearchBarInUse(posts))
+  }
+
+  setPosts = (newPosts) => {
+    this.setState({
+      currentPosts: newPosts,
+      searchedPosts: newPosts,
+      posts: newPosts
+    });
+  }
+
   // POST requests
-  blogPost = (content) => {
+  blogPost = (content, title) => {
     return fetch(`${config.API_ENDPOINT}/posts/blog`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
         "Authorization": `Bearer ${tokenService.getAuthToken()}`
       },
-      body: JSON.stringify({ content })
+      body: JSON.stringify({ content, title })
     })
       .then(res => {
         if (!res.ok) {
@@ -47,16 +78,13 @@ class App extends Component {
         return res.json();
       })
       .then(post => {
-        console.log(post)
         const newPosts = [...this.state.posts, post];
-        this.setState({ posts: newPosts });
+        this.setState({ posts: newPosts, currentPosts: newPosts })
   })
     .catch(err => console.error(err.message))
   }
   
- 
   commentPost = (content, post_id) => {
-   this.setState({isLoading: true})
     fetch(`${config.API_ENDPOINT}/comments`, {
       method: "POST",
       headers: {
@@ -79,8 +107,6 @@ class App extends Component {
         const newComments = [...this.state.comments, comment];
         this.setState({
           comments: newComments
-        }, () => {
-          this.setState({ isLoading: false })
         });
       })
     
@@ -91,7 +117,52 @@ class App extends Component {
     const newImages = [...this.state.images, img];
     this.setState({ images: newImages })
   }
-  
+
+  // DELETE post
+  deletePost = (e) => {
+    const id = e.target.getAttribute('id');
+    return fetch(`${config.API_ENDPOINT}/posts/blog/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${tokenService.getAuthToken()}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(e => Promise.reject(e));
+        }
+        return res.json();
+      })
+      .then(() => {
+        const newPosts = this.state.posts.filter(p => p.id !== parseInt(id));
+        this.setState({ posts: newPosts },  () => this.filterPosts())
+      })
+      .catch(err => console.log(err));
+  }
+
+  // DELETE comment
+  deleteComment = (e) => {
+    const id = e.target.getAttribute("comment_id");
+    return fetch(`${config.API_ENDPOINT}/comments/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenService.getAuthToken()}`
+      }
+    }).then(res => {
+      if (!res.ok) {
+        return res.json().then(e => Promise.reject(e));
+      }
+      return res.json();
+    })
+      .then(() => {
+        const { comments } = this.state;
+        const newComments = comments.filter(c => c.comment_id !== parseInt(id));
+        this.setState({ comments: newComments });
+    })
+  }
+
   // GET requests
   getAllPosts = () => {
     return fetch(`${config.API_ENDPOINT}/posts`, {
@@ -169,6 +240,7 @@ class App extends Component {
       })
       .then(res => {
         tokenService.saveAuthToken(res.authToken);
+        console.log(res)
         this.setState({ isLoggedIn: true });
       })
       // redirect with user feedback
@@ -204,9 +276,18 @@ class App extends Component {
         }
         return res.json();
       })
-      .then(res => {
-        this.setState({ isLoggedIn: true }, () => this.userLogin(user_name, password));
+      .then(user => {
+        const newUser = {
+          id: user.id,
+          user_name: user.user_name
+        };
+
+        this.setState({
+          isLoggedIn: true,
+          user: [...this.state.user, newUser]
+        }, () => this.userLogin(user_name, password));
       })
+
       .catch(res => {
         this.setState({
           isError: true,
@@ -227,12 +308,12 @@ class App extends Component {
       comments,
       user,
       images,
-      isLoading: false
+      isLoading: false,
+      currentPosts: posts
     })
   }
   
   render() {
-    
     return (
       <ErrorBoundary>
       <div className='App'>
@@ -250,8 +331,12 @@ class App extends Component {
                 path={"/"}
                 render={() => (
                   <MainPostList
-                    commentPost={this.commentPost}
-                    imagePost={this.imagePost}
+                    commentPost={ this.commentPost }
+                    imagePost={ this.imagePost }
+                    updateTitle={ this.updateTitle }
+                    isSearchedPosts={ this.isSearchedPosts }
+                    deletePost={ this.deletePost }
+                    deleteComment={ this.deleteComment }
                   />
                 )}
               />

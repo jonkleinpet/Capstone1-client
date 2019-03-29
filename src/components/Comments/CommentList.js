@@ -1,8 +1,10 @@
 import React from 'react';
+import tokenService from '../../services/token-service';
+import CommentDeleteButton from './CommentDeleteButton';
 import './styles/comment-list.css';
 
 export default function CommentList(props) {
-  const { comments, user, post_id } = props;
+  const { comments, user, post_id, deleteComment } = props;
  
    
   return (
@@ -14,21 +16,31 @@ export default function CommentList(props) {
         })
         .map(c => {
           return (
-            <div className="comment-list" key={ c.comment_id }>
-              <ul className="comment-item">
+            <div className='comment-list' key={c.comment_id}>
+              <ul className='comment-item'>
                 <li>
-
                   {// filter which user name relates to each comment
-                    user
-                      .filter(u => {
-                        return u.id === c.user_id;
-                      })
+                  user
+                    .filter(u => {
+                      return u.id === c.user_id;
+                    })
 
-                      .map((u, i) => {
-                        return <span key={ i }> { u.user_name } - </span>
-                      }) }
-                  { c.content }
-                  <div className="comment-date">{ new Date(c.date_created).toDateString() }</div>
+                    .map((u, i) => {
+                      return (
+                        <span key={ i }>
+                          {
+                            tokenService.hasAuthToken() && tokenService.checkUser(c.user_id)
+                            ? <CommentDeleteButton comment_id={c.comment_id} deleteComment={ deleteComment }/>
+                            : <></>
+                          }
+                          <span> { u.user_name } - { c.content } </span>
+                        </span>
+                      );
+                    })}
+                
+                  <div className='comment-date'>
+                    {new Date(c.date_created).toDateString()}
+                  </div>
                 </li>
               </ul>
             </div>

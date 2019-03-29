@@ -27,21 +27,7 @@ a {
   font-size: 16px;
 }
 
-.comment-date {
-  font-size: 13px;
-}
 
-.comment-item {
-  padding-inline-start: 10px;
-}
-
-.comment-container {
-  background-color: aliceblue;
-  color: #6F6F6F;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  padding: 15px;
-}
 
 .first-post {
   margin-bottom: 50px;

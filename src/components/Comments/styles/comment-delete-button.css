@@ -1,0 +1,13 @@
+.comment-delete {
+  background-color: inherit;
+  justify-content: end;
+  color: rgba(0,0,0,.5);
+  font-size: 13px;
+  border: none;
+  padding: 2px 6px;
+  margin: 0;
+}
+
+.comment-delete:hover {
+  background-color: lightblue;
+}
