@@ -10,7 +10,7 @@ class LoginForm extends Component {
     this.state = {
       name: '',
       password: '',
-      message: '',
+      message: ''
     }
   }
 
