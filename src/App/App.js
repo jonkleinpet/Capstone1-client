@@ -34,7 +34,7 @@ class App extends Component {
 
   // update SearchBar title
   updateTitle = (e) => {
-    const title = e.target.value.replace(/\\/g, '');
+    const title = e.target.value.replace(/\W/gi, '');
     this.setState({ searchTitle: title },
       () => this.filterPosts())
   }
