@@ -232,7 +232,6 @@ class App extends Component {
       })
       .then(res => {
         tokenService.saveAuthToken(res.authToken);
-        console.log(res)
         this.setState({ isLoggedIn: true });
       })
       // display login error message for 3 seconds
