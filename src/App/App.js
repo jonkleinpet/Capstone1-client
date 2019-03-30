@@ -10,6 +10,7 @@ import About from '../components/About/About';
 import ErrorBoundary from '../components/Errors/ErrorBoundary';
 import RegisterForm from '../components/Register/RegisterForm';
 import PostForm from '../components/PostForm/PostForm';
+import EditForm from '../components/EditForm/EditForm';
 import tokenService from '../services/token-service';
 import './App.css';
 
@@ -364,7 +365,8 @@ class App extends Component {
               />
               <Route path={"/about"} component={About} />
               <PostsContext.Provider value={this.blogPost}>
-                <AdminRoute path={"/blog"} component={PostForm} />
+                <AdminRoute path={ "/blog" } component={ PostForm } />
+                <AdminRoute path={ "/blog/edit" } component={ EditForm } />
               </PostsContext.Provider>
             </div>
           </div>

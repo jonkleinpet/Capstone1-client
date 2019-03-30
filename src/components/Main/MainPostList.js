@@ -8,6 +8,7 @@ import ImageList from './ImageList';
 import CloudinaryWidget from './CloudinaryWidget';
 import SearchBar from '../SearchBar/SearchBar';
 import DeleteButton from './DeleteButton';
+import EditButton from '../Edit/EditButton';
 import "./styles/main-post-list.css";
 
 class MainPostList extends Component {
@@ -51,6 +52,7 @@ class MainPostList extends Component {
                     deletePost={deletePost}
                     post_id={p.id}
                   />
+                  <EditButton />
                 </>
               ) : (
                 <></>
