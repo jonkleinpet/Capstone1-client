@@ -10,7 +10,7 @@ import About from '../components/About/About';
 import ErrorBoundary from '../components/Errors/ErrorBoundary';
 import RegisterForm from '../components/Register/RegisterForm';
 import PostForm from '../components/PostForm/PostForm';
-import EditForm from '../components/EditForm/EditForm';
+import EditForm from '../components/Edit/EditForm';
 import tokenService from '../services/token-service';
 import './App.css';
 
@@ -22,6 +22,7 @@ class App extends Component {
     images: [],
     searchedPosts: [],
     currentPosts: [],
+    editContent: '',
     isLoggedIn: false,
     isError: false,
     errorMessage: '',
@@ -53,6 +54,11 @@ class App extends Component {
     const searchedPosts = posts.filter(p => (regex).test(p.title))
     this.setState({ currentPosts: searchedPosts, searchedPosts },
       () => this.isSearchBarInUse(posts))
+  }
+
+  getEditFormContent = async (e) => {
+    const content = e.target.getAttribute('content');
+    this.setState({ editContent: content })
   }
 
   // POST requests
@@ -110,6 +116,18 @@ class App extends Component {
   imagePost = (img) => {
     const newImages = [...this.state.images, img];
     this.setState({ images: newImages })
+  }
+
+  // PATCH post
+  editPost = (id, content, title) => {
+    fetch(`${config.API_ENDPOINT}/posts/blog/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${tokenService.getAuthToken()}`
+      },
+      body: JSON.stringify({ content, title })
+    })
   }
 
   // DELETE post
@@ -311,62 +329,71 @@ class App extends Component {
       <ErrorBoundary>
         <div className='App'>
           <header className='App-header'>
-            <Navbar toggleLogout={this.toggleLogout} />
+            <Navbar toggleLogout={ this.toggleLogout } />
           </header>
           <div className='page-container'>
             <div className='main-container'>
               <h1>Welcome to Laurie's Blog</h1>
-              <PostsContext.Provider value={this.state}>
+              <PostsContext.Provider value={ this.state }>
                 <Route
                   exact
-                  path={"/"}
-                  render={() => (
+                  path={ "/" }
+                  render={ ({ history }) => (
                     <MainPostList
-                      commentPost={this.commentPost}
-                      imagePost={this.imagePost}
-                      updateTitle={this.updateTitle}
-                      isSearchedPosts={this.isSearchedPosts}
-                      deletePost={this.deletePost}
-                      deleteComment={this.deleteComment}
+                      commentPost={ this.commentPost }
+                      imagePost={ this.imagePost }
+                      updateTitle={ this.updateTitle }
+                      isSearchedPosts={ this.isSearchedPosts }
+                      deletePost={ this.deletePost }
+                      deleteComment={ this.deleteComment }
+                      getEditFormContent={ this.getEditFormContent }
+                      history={ history }
                     />
                   )}
                 />
               </PostsContext.Provider>
               <Route
                 exact
-                path={"/login"}
-                render={() =>
+                path={ "/login" }
+                render={ () =>
                   this.state.isLoggedIn ? (
                     <Redirect to='/' />
                   ) : (
-                    <LoginForm
-                      isError={this.state.isError}
-                      errorMessage={this.state.errorMessage}
-                      userLogin={this.userLogin}
+                      <LoginForm
+                        isError={ this.state.isError }
+                        errorMessage={ this.state.errorMessage }
+                        userLogin={ this.userLogin }
                     />
                   )
                 }
               />
               <Route
                 exact
-                path={"/register"}
-                render={() =>
+                path={ "/register" }
+                render={ () =>
                   this.state.isLoggedIn ? (
                     <Redirect to='/' />
                   ) : (
-                    <RegisterForm
-                      isError={this.state.isError}
-                      errorMessage={this.state.errorMessage}
-                      userLogin={this.userLogin}
-                      userRegister={this.userRegister}
+                      <RegisterForm
+                        isError={ this.state.isError }
+                        errorMessage={ this.state.errorMessage }
+                        userLogin={ this.userLogin }
+                        userRegister={ this.userRegister }
                     />
                   )
                 }
               />
-              <Route path={"/about"} component={About} />
-              <PostsContext.Provider value={this.blogPost}>
-                <AdminRoute path={ "/blog" } component={ PostForm } />
+              <Route path={ "/about" } component={ About } />
+              <PostsContext.Provider value={
+                {
+                  editPost: this.editPost,
+                  editContent: this.state.editContent
+                }
+              }>
                 <AdminRoute path={ "/blog/edit" } component={ EditForm } />
+              </PostsContext.Provider>
+              <PostsContext.Provider value={ this.blogPost }>
+                <AdminRoute exact path={ "/blog" } component={ PostForm }/>
               </PostsContext.Provider>
             </div>
           </div>

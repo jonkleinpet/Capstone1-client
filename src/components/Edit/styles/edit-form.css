@@ -1,0 +1,13 @@
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-form input {
+  margin-top: 10px;
+}
+
+.edit-form textarea {
+  margin-top: 10px;
+}

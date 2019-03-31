@@ -17,13 +17,13 @@ class MainPostList extends Component {
 
   render() {
     
-    const { commentPost, imagePost, updateTitle, deletePost, deleteComment } = this.props
+    const { commentPost, imagePost, updateTitle, deletePost, deleteComment, getEditFormContent, history } = this.props
     const {
       currentPosts, 
       isLoading, 
       user, 
       comments, 
-      images,
+      images
     } = this.context;
 
     const postList = currentPosts
@@ -31,55 +31,59 @@ class MainPostList extends Component {
         return (
           // generate posts list
           <div
-            className={i !== 0 ? "post-item" : "first-post"}
-            key={p.id}>
-            <h2>{p.title}</h2>
-            <ImageList images={images} postId={p.id} />
+            className={ i !== 0 ? "post-item" : "first-post" }
+            key={ p.id }>
+            <h2>{ p.title }</h2>
+            <ImageList images={ images } postId={ p.id } />
             <ul className='main-post-list'>
-              <li className='post-content'>{p.content}</li>
+              <li className='post-content'>{ p.content }</li>
               <li className='post-date'>
-                Posted - {new Date(p.date_added).toDateString()}
+                Posted - { new Date(p.date_added).toDateString() }
               </li>
 
               {// check the user is logged in and the admin
-              tokenService.hasAuthToken() && tokenService.isAdmin() ? (
-                <>
-                  <CloudinaryWidget
-                    post_id={p.id}
-                    imagePost={imagePost}
-                  />
-                  <DeleteButton
-                    deletePost={deletePost}
-                    post_id={p.id}
-                  />
-                  <EditButton />
-                </>
-              ) : (
-                <></>
-              )}
+                tokenService.hasAuthToken() && tokenService.isAdmin() ? (
+                  <>
+                    <CloudinaryWidget
+                      post_id={ p.id }
+                      imagePost={ imagePost }
+                    />
+                    <DeleteButton
+                      deletePost={ deletePost }
+                      post_id={ p.id }
+                    />
+                    <EditButton
+                      history={ history }
+                      content={ p.content }
+                      getEditFormContent={ getEditFormContent }
+                    />
+                  </>
+                ) : (
+                    <></>
+                  ) }
             </ul>
             <h3>Comments</h3>
             <div className='comment-container'>
               <CommentList
-                key={i}
-                comments={comments}
-                deleteComment={deleteComment}
-                user={user}
-                post_id={p.id}
+                key={ i }
+                comments={ comments }
+                deleteComment={ deleteComment }
+                user={ user }
+                post_id={ p.id }
               />
             </div>
-            {tokenService.hasAuthToken() ? (
+            { tokenService.hasAuthToken() ? (
               <CommentButton
-                commentPost={commentPost}
-                isLoading={isLoading}
-                post_id={p.id}
+                commentPost={ commentPost }
+                isLoading={ isLoading }
+                post_id={ p.id }
               />
             ) : (
-              <div>
-                <Link className="user-comment-link" to={"/register"}>Register</Link> or{" "}
-                <Link className="user-comment-link" to={"/login"}>Login</Link> to post comments!
+                <div>
+                  <Link className="user-comment-link" to={ "/register" }>Register</Link> or{ " " }
+                  <Link className="user-comment-link" to={ "/login" }>Login</Link> to post comments!
               </div>
-            )}
+              ) }
           </div>
         );
       });

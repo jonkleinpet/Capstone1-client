@@ -7,13 +7,15 @@ const PostsContext = React.createContext({
   searchedPosts: [],
   searchTitle: '',
   searchMessage: '',
+  editContent: '',
   isError: false,
   isLoading: false,
   noComments: false,
-  blogPost: () => {},
-  userLogin: () => {},
-  userRegister: () => {},
-  commentPost: () => {},
+  blogPost: () => { },
+  editPost: () => { },
+  userLogin: () => { },
+  userRegister: () => { },
+  commentPost: () => { },
 });
 
 export default PostsContext;
