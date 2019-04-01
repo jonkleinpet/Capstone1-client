@@ -8,6 +8,8 @@ const PostsContext = React.createContext({
   searchTitle: '',
   searchMessage: '',
   editContent: '',
+  editTitle: '',
+  editPostId: null,
   isError: false,
   isLoading: false,
   noComments: false,

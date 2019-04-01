@@ -55,6 +55,8 @@ class MainPostList extends Component {
                     <EditButton
                       history={ history }
                       content={ p.content }
+                      title={ p.title }
+                      post_id={ p.id }
                       getEditFormContent={ getEditFormContent }
                     />
                   </>

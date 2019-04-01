@@ -23,6 +23,8 @@ class App extends Component {
     searchedPosts: [],
     currentPosts: [],
     editContent: '',
+    editTitle: '',
+    editPostId: null,
     isLoggedIn: false,
     isError: false,
     errorMessage: '',
@@ -58,7 +60,13 @@ class App extends Component {
 
   getEditFormContent = async (e) => {
     const content = e.target.getAttribute('content');
-    this.setState({ editContent: content })
+    const title = e.target.getAttribute('title');
+    const id = e.target.getAttribute('post_id');
+    this.setState({
+      editContent: content,
+      editTitle: title,
+      editPostId: id
+    })
   }
 
   // POST requests
@@ -119,7 +127,7 @@ class App extends Component {
   }
 
   // PATCH post
-  editPost = (id, content, title) => {
+  editPost = async (id, content, title) => {
     fetch(`${config.API_ENDPOINT}/posts/blog/${id}`, {
       method: "PATCH",
       headers: {
@@ -128,6 +136,18 @@ class App extends Component {
       },
       body: JSON.stringify({ content, title })
     })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(e => Promise.reject(e));
+        }
+        return res.json();
+      })
+      .then(post => {
+        const { posts } = this.state;
+        const postToEdit = posts.findIndex(p => p.id === post.id);
+        posts.splice(postToEdit, 1, ...post);
+        this.setState({ posts }, () => this.filterPosts());
+      })
   }
 
   // DELETE post
@@ -387,7 +407,9 @@ class App extends Component {
               <PostsContext.Provider value={
                 {
                   editPost: this.editPost,
-                  editContent: this.state.editContent
+                  editContent: this.state.editContent,
+                  editTitle: this.state.editTitle,
+                  editPostId: this.state.editPostId
                 }
               }>
                 <AdminRoute path={ "/blog/edit" } component={ EditForm } />
