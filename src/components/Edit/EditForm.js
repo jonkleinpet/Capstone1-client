@@ -13,6 +13,7 @@ export default class EditForm extends Component {
   static contextType = PostsContext;
 
   componentDidMount() {
+    // fill out edit form with content from post
     const { editContent, editTitle } = this.context;
     const textArea = document.getElementById('edit-content');
     const titleInput = document.getElementById('title');
