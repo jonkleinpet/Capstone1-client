@@ -20,14 +20,14 @@ class Navbar extends Component {
           <NavLink to='/about'>
             <div className='nav-item'>About</div>
           </NavLink>
-          <Link to='/'>
+          <Link to='/dashboard'>
             <div className='nav-item'>Home</div>
           </Link>
         </span>
 
         <span className='login-reg-items'>
           { tokenService.hasAuthToken()
-            ? <Link to='/'>
+            ? <Link to='/dashboard'>
               <div className='nav-item' onClick={ () => logout() }>Logout</div>
             </Link>
 

@@ -19,7 +19,7 @@ class AdminNavbar extends Component {
           <NavLink to='/about'>
             <div className='nav-item'>About</div>
           </NavLink>
-          <Link to='/'>
+          <Link to='/dashboard'>
             <div className='nav-item'>Home</div>
           </Link>
           <NavLink to='/blog'>
@@ -27,7 +27,7 @@ class AdminNavbar extends Component {
           </NavLink>
         </span>
         <span className='login-reg-items'>
-          <Link to='/'>
+          <Link to='/dashboard'>
             <div className='nav-item' onClick={() => logout()}>
               Logout
             </div>

@@ -26,7 +26,7 @@ class PostForm extends Component {
     const { content, title } = this.state;
     const blogPost  = this.context;
     e.preventDefault();
-    blogPost(content, title).then(() => history.push('/'));
+    blogPost(content, title).then(() => history.push('/dashboard'));
   }
 
   render() {

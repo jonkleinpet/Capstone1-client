@@ -11,6 +11,7 @@ import ErrorBoundary from '../components/Errors/ErrorBoundary';
 import RegisterForm from '../components/Register/RegisterForm';
 import PostForm from '../components/PostForm/PostForm';
 import tokenService from '../services/token-service';
+import Landing from '../components/Landing/Landing';
 import './App.css';
 
 class App extends Component {
@@ -318,7 +319,7 @@ class App extends Component {
               <PostsContext.Provider value={this.state}>
                 <Route
                   exact
-                  path={"/"}
+                  path={"/dashboard"}
                   render={() => (
                     <MainPostList
                       commentPost={this.commentPost}
@@ -336,7 +337,7 @@ class App extends Component {
                 path={"/login"}
                 render={() =>
                   this.state.isLoggedIn ? (
-                    <Redirect to='/' />
+                    <Redirect to='/dashboard' />
                   ) : (
                     <LoginForm
                       isError={this.state.isError}
@@ -366,6 +367,7 @@ class App extends Component {
               <PostsContext.Provider value={this.blogPost}>
                 <AdminRoute path={"/blog"} component={PostForm} />
               </PostsContext.Provider>
+              <Route exact path={'/'} component={Landing}/>
             </div>
           </div>
         </div>

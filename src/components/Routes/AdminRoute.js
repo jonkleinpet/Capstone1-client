@@ -9,7 +9,7 @@ function AdminRoute({ component, ...props }) {
       {...props}
       render={componentProps =>
         !TokenService.isAdmin() ? (
-          <Redirect to={"/"} />
+          <Redirect to={"/dashboard"} />
         ) : (
           <Component {...componentProps} />
         )

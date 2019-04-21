@@ -1,0 +1,17 @@
+.login-creds {
+  display: inline-block;
+  text-align: left;
+}
+
+.landing-section {
+  line-height: 28px;
+  font-size: 18px;
+}
+
+.landing-section a {
+  display: block;
+}
+
+.landing-section button {
+  font-size: 16px;
+}
