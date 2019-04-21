@@ -21,10 +21,6 @@
 	        animation: fade-in 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
-.main-container h1 {
-  display: hidden;
-}
-
 @-webkit-keyframes fade-in {
   0% {
     -webkit-transform: translateZ(80px);

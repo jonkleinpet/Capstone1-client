@@ -1,6 +1,5 @@
 .post-form {
   display: flex;
-  /* width: 40vw; */
   flex-direction: column;
   align-items: center;
 }

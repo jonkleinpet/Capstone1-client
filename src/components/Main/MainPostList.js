@@ -83,10 +83,10 @@ class MainPostList extends Component {
       });
     
     return (
-      <>
+      <section className="main-list-section">
         <SearchBar updateTitle={ updateTitle } />
         { postList }     
-      </>
+      </section>
     );
   }
 }

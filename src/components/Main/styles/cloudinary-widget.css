@@ -12,10 +12,71 @@
 }
 
 .widget input:hover {
-  background-color: silver;
+  -webkit-animation: wobble 0.6s both;
+	        animation: wobble 0.6s both;
   cursor: pointer;
 }
 
 .widget input:focus {
   outline: 0;
+}
+
+@-webkit-keyframes wobble {
+  0%,
+  100% {
+    -webkit-transform: translateY(0) rotate(0);
+            transform: translateY(0) rotate(0);
+    -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+  }
+  15% {
+    -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
+  }
+  30% {
+    -webkit-transform: translateY(2px);
+            transform: translateY(2px);
+  }
+  45% {
+    -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
+  }
+  60% {
+    -webkit-transform: translateY(1px);
+            transform: translateY(1px);
+  }
+  75% {
+    -webkit-transform: translateY(-1px);
+            transform: translateY(-1px);
+  }
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    -webkit-transform: translateY(0) rotate(0);
+            transform: translateY(0) rotate(0);
+    -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+  }
+  15% {
+    -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
+  }
+  30% {
+    -webkit-transform: translateY(2px);
+            transform: translateY(2px);
+  }
+  45% {
+    -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
+  }
+  60% {
+    -webkit-transform: translateY(1px);
+            transform: translateY(1px);
+  }
+  75% {
+    -webkit-transform: translateY(-1px);
+            transform: translateY(-1px);
+  }
 }

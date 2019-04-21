@@ -313,8 +313,8 @@ class App extends Component {
           <header className='App-header'>
             <Navbar toggleLogout={this.toggleLogout} />
           </header>
-          <div className='page-container'>
-            <div className='main-container'>
+          <section className='page-container'>
+            <section className='main-container'>
               <PostsContext.Provider value={this.state}>
                 <Route
                   exact
@@ -367,8 +367,8 @@ class App extends Component {
                 <AdminRoute path={"/blog"} component={PostForm} />
               </PostsContext.Provider>
               <Route exact path={'/'} component={Landing}/>
-            </div>
-          </div>
+            </section>
+          </section>
         </div>
       </ErrorBoundary>
     );

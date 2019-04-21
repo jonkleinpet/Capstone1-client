@@ -45,3 +45,7 @@ h3 {
   border-spacing: 8px;
   display: table;
 }
+
+.main-list-section {
+  width: 60vw;
+}

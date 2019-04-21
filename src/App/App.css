@@ -12,7 +12,7 @@
 }
 
 h1 {
-  margin: 80px;
+  margin: 40px;
 }
 
 h1, h2, h3, h4 {
@@ -24,7 +24,6 @@ ul {
 }
 
 .main-container {
-  width: 60vw;
   display: block;
   height: auto;
 }
@@ -47,7 +46,8 @@ button {
 }
 
 button:hover {
-  background-color: silver;
+	-webkit-animation: wobble 0.6s both;
+	        animation: wobble 0.6s both;
   cursor: pointer;
 }
 
@@ -55,10 +55,99 @@ button:focus {
   outline: 0;
 }
 
+form {
+  background-color: rgba(164, 219, 255, 0.623);
+  padding: 0 40px;
+  border-radius: 7px;
+}
+
+form input {
+  margin-bottom: 15px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  height: 20px;
+  border-radius: 4px;
+  padding-left: 2px;
+  box-shadow: 0 4px 4px -4px rgba(0, 0, 0, .25),
+              0 4px 4px -4px rgba(0, 0, 0, .25);
+}
+
+form h1 {
+  font-size: 24px;
+}
+
+form button {
+  margin-bottom: 15px;
+  background-color: silver;
+}
+
 #root {
   width: 100vw;
   letter-spacing: .8px;
 }
+
+/* button animations */
+@-webkit-keyframes wobble {
+  0%,
+  100% {
+    -webkit-transform: translateY(0) rotate(0);
+            transform: translateY(0) rotate(0);
+    -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+  }
+  15% {
+    -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
+  }
+  30% {
+    -webkit-transform: translateY(2px);
+            transform: translateY(2px);
+  }
+  45% {
+    -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
+  }
+  60% {
+    -webkit-transform: translateY(1px);
+            transform: translateY(1px);
+  }
+  75% {
+    -webkit-transform: translateY(-1px);
+            transform: translateY(-1px);
+  }
+}
+@keyframes wobble {
+  0%,
+  100% {
+    -webkit-transform: translateY(0) rotate(0);
+            transform: translateY(0) rotate(0);
+    -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+  }
+  15% {
+    -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
+  }
+  30% {
+    -webkit-transform: translateY(2px);
+            transform: translateY(2px);
+  }
+  45% {
+    -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
+  }
+  60% {
+    -webkit-transform: translateY(1px);
+            transform: translateY(1px);
+  }
+  75% {
+    -webkit-transform: translateY(-1px);
+            transform: translateY(-1px);
+  }
+}
+
+
+
 
 @media screen and (max-width: 700px) {
   .main-container {
