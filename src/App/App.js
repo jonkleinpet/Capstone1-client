@@ -315,7 +315,6 @@ class App extends Component {
           </header>
           <div className='page-container'>
             <div className='main-container'>
-              <h1>Welcome to Laurie's Blog</h1>
               <PostsContext.Provider value={this.state}>
                 <Route
                   exact
